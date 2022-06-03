@@ -99,6 +99,7 @@ export default {
       }
 
       if (this.searchTxt.trim().length == 0) {
+        this.$store.dispatch('clearSearchTextAction');
         this.getBeers();
       }
     },

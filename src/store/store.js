@@ -40,8 +40,11 @@ const store = new Vuex.Store({
        *Para realizar el filtrado por texto es necesario como minimo 4 caracteres
        */
       state.filters.searchTxt = searchTxt;
+      state.page = 1;
       const beers = await searchByFilter(state.filters, state.page, state.perPage);
+
       state.beers = beers;
+      
     },
     async setFiltersFromModal(state, filters) {
 
@@ -53,6 +56,7 @@ const store = new Vuex.Store({
 
       const beers = await searchByFilter(state.filters, state.page, state.perPage);
       state.beers = beers;
+      state.page = 1;
     },
     async setPage(state, page) {
       if (page > 0) {
@@ -60,6 +64,9 @@ const store = new Vuex.Store({
         const beers = await searchByFilter(state.filters, state.page, state.perPage);
         state.beers = beers;
       }
+    },
+    clearSearchText(state){
+      state.filters.searchTxt = '';
     }
 
   },
@@ -78,7 +85,11 @@ const store = new Vuex.Store({
     },
     setPageAction(context, page) {
       context.commit('setPage', page);
+    },
+    clearSearchTextAction(context){
+      context.commit('clearSearchText');
     }
+
   },
 })
 
